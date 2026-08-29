@@ -98,7 +98,28 @@
     <div id="event-container"></div>
 
     <script>
+      function weeklyEvents({ title, time, location, description, startDate, endDate }){
+        const results = [];
+        let current = new Date(startDate + "T00:00:00");
+        const end = new Date(endDate + "T00:00:00");
+
+        while(current <== end) {
+          const dateStr = current.tolSOString().split("T")[0];
+          results.push({ title, time, location, description, date: dateStr });
+          current.setDate(current.getDate() + 7);
+        }
+        return results;
+      }
       const events = [
+        ...weeklyEvents({
+          title: "Wednesday Putnam Preparation",
+          time: "10 - 11 am",
+          location: "Carroll 108D (Dr. Seibert's office)",
+          description: "Are you interested in taking the Putnam exam seriously? Join Dr. Seibert and other students that are serious about the Putnam each week to prepare."
+          startDate: "2026-09-02",
+          endDate: "2026-12-02",
+          exceptions: ["2026-11-25"]
+      })      
         {
           title: "Denver Astronomical Society Talk: A Graphical Tour of the Cosmos, Dr. Ed Friedman",
           date: "2026-09-14",
