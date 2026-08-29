@@ -98,14 +98,16 @@
     <div id="event-container"></div>
 
     <script>
-      function weeklyEvents({ title, time, location, description, startDate, endDate }){
+      function weeklyEvents({ title, time, location, description, startDate, endDate, exceptions=[] }){
         const results = [];
         let current = new Date(startDate + "T00:00:00");
         const end = new Date(endDate + "T00:00:00");
 
         while(current <== end) {
           const dateStr = current.tolSOString().split("T")[0];
-          results.push({ title, time, location, description, date: dateStr });
+          if(!exceptions.includes(dateStr)) {
+            results.push({ title, time, location, description, date: dateStr });
+          }
           current.setDate(current.getDate() + 7);
         }
         return results;
